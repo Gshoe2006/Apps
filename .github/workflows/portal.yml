@@ -36,6 +36,8 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site
+          # one name per attempt, so "Re-run all jobs" doesn't find two copies and fail
+          name: github-pages-${{ github.run_attempt }}
 
   deploy:
     needs: build
@@ -46,3 +48,5 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
