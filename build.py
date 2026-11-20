@@ -197,7 +197,7 @@ def render_index(apps, cfg, owner):
 <div class="subscribe"><a class="button" href="feed.xml">Subscribe to every app (RSS)</a></div>
 {f'<ul class="cards">{"".join(cards)}</ul>' if cards else empty}
 </main>"""
-    return page(title, body, "", "feed.xml", f"{title}: all updates", intro)
+    return page(title, body, "", "feed.xml", f"{title} (all apps)", intro)
 
 
 def render_app(app, cfg, owner):
@@ -274,7 +274,7 @@ def build(apps, cfg, owner, out, site_url):
     everything = sorted(((a, r) for a in apps for r in a["releases"]),
                         key=lambda e: e[1]["published_at"], reverse=True)[:50]
     (out / "feed.xml").write_text(render_feed(
-        site_url, f"{title}: all updates", site_url + "feed.xml", site_url, everything))
+        site_url, f"{title} (all apps)", site_url + "feed.xml", site_url, everything))
 
     for a in apps:
         name = a["repo"]["name"]
